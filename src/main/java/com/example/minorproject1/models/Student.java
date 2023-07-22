@@ -34,6 +34,11 @@ public class Student {
     @UpdateTimestamp
     private Date updatedOn;
 
+    @OneToOne
+    @JoinColumn
+    @JsonIgnoreProperties("student")
+    private SecuredUser securedUser;
+
 
     @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"student"})

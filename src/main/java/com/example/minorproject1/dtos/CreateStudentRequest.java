@@ -1,5 +1,6 @@
 package com.example.minorproject1.dtos;
 
+import com.example.minorproject1.models.SecuredUser;
 import com.example.minorproject1.models.Student;
 import lombok.*;
 
@@ -20,12 +21,22 @@ public class CreateStudentRequest {
     @NotBlank
     private String email;
 
+    @NotBlank
+    private String username;
+
+    @NotBlank
+    private String password;
+
     public Student to() {
         return Student
                 .builder()
                 .name(this.name)
                 .age(this.age)
                 .email(this.email)
+                .securedUser(SecuredUser.builder()
+                        .username(username)
+                        .password(password)
+                        .build())
                 .build();
     }
 }

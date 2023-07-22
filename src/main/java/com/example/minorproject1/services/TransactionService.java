@@ -33,13 +33,13 @@ public class TransactionService {
     @Value("${student.allowed.duration}")
     Integer duration;
 
-    public String initiateTxn(InitiateTransactionRequest request) throws Exception {
+    public String initiateTxn(InitiateTransactionRequest request,Integer adminId) throws Exception {
 
         return request.getTransactionType() == TransactionType.ISSUE ?
-                issueBook(request) : returnBook(request);
+                issueBook(request,adminId) : returnBook(request,adminId);
     }
 
-    private String issueBook(InitiateTransactionRequest request) throws Exception {
+    private String issueBook(InitiateTransactionRequest request, Integer adminId) throws Exception {
         /**
          * Issuance
          * 1. If the book is available or not and student is valid or not
@@ -49,7 +49,7 @@ public class TransactionService {
          *
          */
          Student student = studentService.getStudent(request.getStudentId());
-         Admin admin = adminService.getAdmin(request.getAdminId());
+         Admin admin = adminService.getAdmin(adminId);
          List<Book> books = bookService.getBooks("id", String.valueOf(request.getBookId()));
 
          Book book = books.size() > 0 ? books.get(0) : null;
@@ -88,7 +88,7 @@ public class TransactionService {
          return  transaction.getTxnId();
     }
 
-    private String returnBook(InitiateTransactionRequest request) throws Exception {
+    private String returnBook(InitiateTransactionRequest request, Integer adminId) throws Exception {
         /**
          * Return
          * 1. If the book is valid or not and student is valid or not
@@ -98,7 +98,8 @@ public class TransactionService {
          */
 
         Student student = studentService.getStudent(request.getStudentId());
-        Admin admin = adminService.getAdmin(request.getAdminId());
+
+        Admin admin = adminService.getAdmin(adminId);
         List<Book> books = bookService.getBooks("id", String.valueOf(request.getBookId()));
 
         Book book = books.size() > 0 ? books.get(0) : null;

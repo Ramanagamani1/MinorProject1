@@ -19,6 +19,7 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
+    // admin can create book
     @PostMapping("/book")
     public void createBook(@RequestBody @Valid CreateBookRequest createBookRequest) {
         bookService.createOrUpdate(createBookRequest.to());
