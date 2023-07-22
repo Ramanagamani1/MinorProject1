@@ -24,4 +24,7 @@ public class Constants {
     public static final String DELIMITER = "::";
     public static final String STUDENT_USER = "STUDENT";
     public static final String ADMIN_USER = "ADMIN";
+
+    public static final String STUDENT_KEY_PREFIX = "student::";
+    public static final Integer STUDENT_KEY_EXPIRY = 600;
 }
